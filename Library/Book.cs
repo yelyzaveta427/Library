@@ -1,15 +1,40 @@
 namespace Library;
 
-public class Book
+public class Book : IMaterial
 {
-    private string BookName { get; set; }
-    private string YearOfPublication { get; set; }
+    
+    public string Name { get; }
+    public string Year { get; }
+    public bool IsAvailable { get; private set; }
 
     public Book(string bookName, string yearOfPublication)
     {
-        BookName = bookName;
-        YearOfPublication = yearOfPublication;
+        Name = bookName;
+        Year = yearOfPublication;
+        IsAvailable = true;
+    }
+    
+    public void Take()
+    {
+        if (!IsAvailable)
+        {
+            Console.WriteLine($"Book is not available");
+            return;
+        }
+
+        IsAvailable = false;
+        Console.WriteLine($"Book {Name} is successfully taken");
     }
 
-    public string GetInfo() => $"Book {BookName} has {YearOfPublication} year of publication";
+    public void Return()
+    {
+        IsAvailable = true;
+        Console.WriteLine($"Book {Name} is returned");
+    }
+
+    
+    public string GetInfo()
+    {
+        return $"Book {Name} has {Year} year of publication";
+    }
 }

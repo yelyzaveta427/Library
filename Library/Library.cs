@@ -2,11 +2,11 @@ namespace Library;
 
 public class Library
 {
-    private List<Book> materials = new List<Book>();
+    private List<IMaterial> materials = new List<IMaterial>();
 
-    public void AddMaterial(Book b)
+    public void AddMaterial(IMaterial material)
     {
-        materials.Add(b);
+        materials.Add(material);
     }
 
     public void ShowAllMaterials()
@@ -17,5 +17,28 @@ public class Library
         }
     }
 
-    
+    public void FindByName(string n)
+    {
+        List<IMaterial> result = new List<IMaterial>();
+        foreach (var m in materials)
+        {
+            if (n == m.Name)
+            {
+                result.Add(m);
+                Console.WriteLine($"Material {m.Name} if found");
+            }
+            
+        }
+    }
+
+    public void FilterMaterial()
+    {
+        foreach (var m in materials)
+        {
+            if (m is Book || m is Video)
+            {
+                Console.WriteLine($"Material is filtered. We have now {m.Name}");
+            }
+        }
+    }
 }
